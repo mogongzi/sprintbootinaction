@@ -1,4 +1,4 @@
-package demo.chapter1;
+package demo.chapter1.di;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

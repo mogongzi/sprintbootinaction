@@ -1,4 +1,4 @@
-package demo.chapter1;
+package demo.chapter1.di;
 
 public class AnotherUseFunctionService {
 
