@@ -5,5 +5,4 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan("demo.chapter3.aware")
-public class AwareConfig {
-}
+public class AwareConfig {}

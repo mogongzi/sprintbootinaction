@@ -5,5 +5,4 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan("demo.chapter2.scope")
-public class ScopeConfig {
-}
+public class ScopeConfig {}

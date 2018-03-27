@@ -5,5 +5,4 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan("demo.chapter1.di")
-public class DiConfig {
-}
+public class DiConfig {}
