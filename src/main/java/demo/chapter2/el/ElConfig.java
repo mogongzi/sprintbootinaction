@@ -21,7 +21,7 @@ public class ElConfig {
     @Value("I love you!")
     private String normal;
 
-    @Value("{#systemProperties['java.version']}")
+    @Value("{#systemProperties['os.name']}")
     private String osName;
 
     @Value("#{ T(java.lang.Math).random() * 100.0 }")
