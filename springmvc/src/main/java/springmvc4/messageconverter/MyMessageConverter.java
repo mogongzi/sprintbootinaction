@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.util.StreamUtils;
 import springmvc4.domain.DemoObj;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.nio.charset.Charset;
 public class MyMessageConverter extends AbstractHttpMessageConverter<DemoObj> {
 
     public MyMessageConverter() {
-        super(new MediaType("application", "x-wisely", Charset.forName("UTF-8")));
+        super(new MediaType("application", "x-customized", Charset.forName("UTF-8")));
     }
 
     @Override
@@ -24,11 +25,15 @@ public class MyMessageConverter extends AbstractHttpMessageConverter<DemoObj> {
 
     @Override
     protected DemoObj readInternal(Class<? extends DemoObj> clazz, HttpInputMessage httpInputMessage) throws IOException, HttpMessageNotReadableException {
-        return null;
+        String temp = StreamUtils.copyToString(httpInputMessage.getBody(), Charset.forName("UTF-8"));
+        String[] tempArr = temp.split("-");
+        return new DemoObj(new Long(tempArr[0]), tempArr[1]);
     }
 
     @Override
     protected void writeInternal(DemoObj demoObj, HttpOutputMessage httpOutputMessage) throws IOException, HttpMessageNotWritableException {
+        String out = "hello: " + demoObj.getId() + "-" + demoObj.getName();
+        httpOutputMessage.getBody().write(out.getBytes());
 
     }
 }

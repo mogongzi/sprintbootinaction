@@ -33,42 +33,36 @@
             <version>8.0</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- Spring MVC -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring-framework.version}</version>
         </dependency>
-
         <!-- Other Web dependencies -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
-
         <!-- Spring and Transactions -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
             <version>${spring-framework.version}</version>
         </dependency>
-
         <!-- SLF4J and Logback -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -100,14 +94,12 @@
             <artifactId>logback-access</artifactId>
             <version>${logback.version}</version>
         </dependency>
-
         <!--JSON and XML support -->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
             <version>2.9.4</version>
         </dependency>
-
         <!-- file upload -->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -120,15 +112,14 @@
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
-
+        <!-- Spring Test Framework -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring-framework.version}</version>
             <scope>test</scope>
         </dependency>
-
-
+        <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
