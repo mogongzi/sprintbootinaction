@@ -7,5 +7,5 @@ actionApp.config(['$routeProvider', function($routeProvider) {
     }).when('/directive', {
         controller: 'View2Controller',
         templateUrl: 'views/view2.html'
-    })
-}])
+    });
+}]);
