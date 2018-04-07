@@ -62,4 +62,10 @@ public class DataController {
         Page<Person> pagePeople = personRepository.findAll(PageRequest.of(1, 2));
         return pagePeople;
     }
+
+    @RequestMapping("/auto")
+    public Page<Person> auto(Person person) {
+        Page<Person> pagePeople = personRepository.findByAuto(person, PageRequest.of(0, 10));
+        return pagePeople;
+    }
 }
