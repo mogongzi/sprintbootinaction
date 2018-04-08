@@ -8,6 +8,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 @Service
 public class AwareService implements BeanNameAware, ResourceLoaderAware {
@@ -30,7 +31,7 @@ public class AwareService implements BeanNameAware, ResourceLoaderAware {
 
         Resource resource = loader.getResource("classpath:demo/chapter3/aware/test.txt");
         try {
-            System.out.println("ResourceLoader loads file content is: " + IOUtils.toString(resource.getInputStream()));
+            System.out.println("ResourceLoader loads file content is: " + IOUtils.toString(resource.getInputStream(), Charset.defaultCharset()));
         } catch (IOException e) {
             e.printStackTrace();
         }
