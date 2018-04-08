@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-demo.spingaction.springboothello.HelloServiceAutoConfiguration
+demo.springboot2.hello.HelloServiceAutoConfiguration
