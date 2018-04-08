@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -25,7 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated()
+        http.authorizeRequests()
+                .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").failureUrl("/login?error")
                 .permitAll()
                 .and().logout().permitAll();
@@ -34,6 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @SuppressWarnings("deprecation")
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder)NoOpPasswordEncoder.getInstance();
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 }

@@ -44,7 +44,7 @@
 		<!-- optional, it brings userful tags to display spring security stuff -->
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 		</dependency>
 		<!-- ojdbc8.jar example -->
 		<dependency>
