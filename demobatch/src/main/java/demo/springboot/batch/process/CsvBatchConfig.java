@@ -21,7 +21,7 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.validator.Validator;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+//import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -37,7 +37,7 @@ public class CsvBatchConfig {
         reader.setResource(new ClassPathResource("people.csv"));
         reader.setLineMapper(new DefaultLineMapper<Person>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames(new String[] {"name", "age", "nation", "address"});
+                setNames(new String[]{"name", "age", "nation", "address"});
             }});
 
             setFieldSetMapper(new BeanWrapperFieldSetMapper<Person>() {{
