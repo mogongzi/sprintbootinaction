@@ -11,6 +11,9 @@ import org.springframework.integration.dsl.IntegrationFlows;
 import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.dsl.channel.MessageChannels;
 import org.springframework.integration.feed.inbound.FeedEntryMessageSource;
+import org.springframework.integration.file.dsl.Files;
+import org.springframework.integration.file.support.FileExistsMode;
+import org.springframework.integration.mail.dsl.Mail;
 import org.springframework.integration.scheduling.PollerMetadata;
 
 import java.io.File;
@@ -43,10 +46,10 @@ public class DemoIntegrationApplication {
     public IntegrationFlow myFlow() throws IOException {
         return IntegrationFlows.from(feedEntryMessageSource())
                 .<SyndEntry, String>route(payload ->
-                    payload.getCategories().get(0).getName(),
-                    mapping -> mapping.channelMapping("releases", "releasesChannel")
-                        .channelMapping("engineering", "engineeringChannel")
-                        .channelMapping("news", "newsChannel"))
+                                payload.getCategories().get(0).getName(),
+                        mapping -> mapping.channelMapping("releases", "releasesChannel")
+                                .channelMapping("engineering", "engineeringChannel")
+                                .channelMapping("news", "newsChannel"))
                 .get();
     }
 
@@ -55,7 +58,49 @@ public class DemoIntegrationApplication {
         return IntegrationFlows.from(MessageChannels.queue("releasesChannel", 10))
                 .<SyndEntry, String>transform(
                         payload -> "<" + payload.getTitle() + '>'
-                        + payload.getLink() + getProperty("line.separator"))
-                .handle(Files.outboundAdapter(new File("c:/springblog"))
+                                + payload.getLink() + getProperty("line.separator"))
+                .handle(Files.outboundAdapter(new File("/Users/rren/springblog"))
+                        .fileExistsMode(FileExistsMode.APPEND)
+                        .charset("UTF-8")
+                        .fileNameGenerator(message -> "releases.txt")
+                        .get())
+                .get();
+    }
+
+    @Bean
+    public IntegrationFlow engineeringFlow() {
+        return IntegrationFlows.from(MessageChannels.queue("engineeringChannel", 10))
+                .<SyndEntry, String>transform(
+                        e -> "<" + e.getTitle() + ">" + e.getLink()
+                                + getProperty("line.separator"))
+                .handle(Files.outboundAdapter(new File("/Users/rren/springblog"))
+                        .fileExistsMode(FileExistsMode.APPEND)
+                        .charset("UTF-8")
+                        .fileNameGenerator(message -> "engineering.txt")
+                        .get())
+                .get();
+    }
+
+    @Bean
+    public IntegrationFlow newsFlow() {
+        return IntegrationFlows.from(MessageChannels.queue("newsChannel", 10))
+                .<SyndEntry, String>transform(
+                        payload -> "<" + payload.getTitle() + '>'
+                                + payload.getLink() + getProperty("line.separator"))
+                .enrichHeaders(Mail.headers()
+                        .subject("From Spring News")
+                        .to("ryan@sina.cn")
+                        .from("ryan@sina.cn"))
+                .handle(Mail.outboundAdapter("smtp.sina.cn")
+                                .port(25)
+                                .protocol("smtp")
+                                .credentials("ryan", "*******")
+                                .javaMailProperties(p -> {
+                                    p.put("mail.debug", "false");
+                                    p.put("mail.smtp.auth", "true");
+                                    p.put("mail.smtp.starttls.enable", "true");
+                                }),
+                        e -> e.id("smtpOut"))
+                .get();
     }
 }
